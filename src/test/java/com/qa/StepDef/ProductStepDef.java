@@ -1,14 +1,18 @@
 package com.qa.StepDef;
 
+import com.qa.pages.LoginPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class ProductStepDef {
+    LoginPage lp = new LoginPage();
 
     @Given("I'm logged in")
     public void iMLoggedIn() {
-        // Write code here that turns the phrase above into concrete actions
+        lp.findAndSend("userNameTxt","standart_user");
+        lp.findAndSend("passwordTxt", "secret_sauce");
+        lp.findAndClick("loginBtn");
 
     }
     @Then("The product is listed with title {string} and price {string}")
