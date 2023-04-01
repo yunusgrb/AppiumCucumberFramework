@@ -1,6 +1,8 @@
 package com.qa.pages;
 
 import com.google.common.collect.ImmutableMap;
+import org.openqa.selenium.JavascriptExecutor;
+import org.testng.Assert;
 import utils.DriverManager;
 import utils.GlobalParams;
 import utils.TestUtils;
@@ -82,7 +84,7 @@ public class BasePage {
         return driver.findElement(e).getAttribute(attribute);
     }
 
-    public String getText(WebElement e, String msg) {
+    public String getText(WebElement e) {
         String txt;
         switch (new GlobalParams().getPlatformName()) {
             case "Android":
@@ -94,7 +96,7 @@ public class BasePage {
             default:
                 throw new IllegalStateException("Unexpected value: " + new GlobalParams().getPlatformName());
         }
-        utils.log().info(msg + txt);
+
         return txt;
     }
 
@@ -112,6 +114,17 @@ public class BasePage {
         }
         utils.log().info(msg + txt);
         return txt;
+    }
+    public void verifyEqualsText(WebElement element, String text)
+    {
+        waitForVisibility(element);
+        Assert.assertEquals(getText(element).toLowerCase(),text.toLowerCase());
+        System.out.println("getText: "+getText(element));
+    }
+    public void verifyContainsText(WebElement element, String text)
+    {
+        waitForVisibility(element);
+        Assert.assertTrue(getText(element).toLowerCase().contains(text.toLowerCase()));
     }
 
     public void closeApp() {
@@ -207,19 +220,23 @@ public class BasePage {
         }
     }
 
-    public WebElement scroll(WebElement element) {
+    public WebElement scrollToElement(WebElement element) {
 
         boolean canScrollMore = true;
         while (canScrollMore) {
             canScrollMore = (Boolean) driver.executeScript("mobile: scrollGesture", ImmutableMap.of(
                     //"left", 100, "top", 100, "width", 600, "height", 600,
                     "elementId", ((RemoteWebElement) element).getId(),
-                    "direction", "down",
+                    "direction", "up",
                     "percent", 1.0
             ));
         }
         return element;
     }
+   // public void scrollToElementJS(WebElement element) {
+    //    JavascriptExecutor js = (JavascriptExecutor) ;
+     //   js.executeScript("arguments[0].scrollIntoView();", element);
+  //  }
 
     public By scroll(By element) {
         boolean canScrollMore = true;

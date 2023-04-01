@@ -13,13 +13,16 @@ import utils.ServerManager;
 import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"pretty", "html:target/cucumber", "summary"},
+@CucumberOptions(plugin = {"pretty", "html:target/cucumber/report.html",
+        "summary",
+        "me.jvt.cucumber.report.PrettyReports:target/Pixel3/cucumber-html-reports"},
+
         features = {"src/test/resources"},
         glue = {"com.qa.StepDef"},
         snippets = CAMELCASE,
         dryRun=false,
         monochrome=true
-        //   ,tags = "@foo and not @bar"
+        ,tags = "@test"
 )
 public class MyRunnerTest {
 

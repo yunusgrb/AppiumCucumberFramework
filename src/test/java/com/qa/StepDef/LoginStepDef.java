@@ -8,8 +8,8 @@ public class LoginStepDef {
 
     LoginPage lp = new LoginPage();
 
-        @When("I enter user name as {string}")
-        public void iEnterUserNameAs(String username) {
+        @When("I enter username as {string}")
+        public void iEnterUsernameAs(String username) {
             lp.findAndSend("userNameTxt",username);
 
         }
@@ -23,8 +23,8 @@ public class LoginStepDef {
             lp.findAndClick("loginBtn");
 
         }
-        @Then("Login should fail an error {string}")
-        public void loginShouldFailAnError(String err) {
+        @Then("Login should fail with an error {string}")
+        public void loginShouldFailWithAnError(String err) {
             lp.findAndContainsText("errTxt",err);
 
         }

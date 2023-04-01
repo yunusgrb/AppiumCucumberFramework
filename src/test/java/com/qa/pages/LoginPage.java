@@ -57,8 +57,8 @@ public class LoginPage extends BasePage{
             case "errTxt" : myElement =errTxt; break;
 
         }
-
-        getText(myElement,text);
+        scrollToElement(myElement);
+        verifyEqualsText(myElement,text);
     }
 
 
